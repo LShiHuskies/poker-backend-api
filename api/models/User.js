@@ -38,7 +38,7 @@ module.exports = {
       minLength: 6,
       protected: true,
       required: true,
-      columnName: "encryptedPassword"
+      columnName: "encryptedConfirmation"
     },
     admin: { type: 'boolean', defaultsTo: false },
     email: {
@@ -59,13 +59,12 @@ module.exports = {
     },
     bet: {
       type: 'number'
-    }
+    },
   },
-  toJSON: function() {
-    let obj = this.toObject();
-    delete obj.password;
-    delete obj.confirmation;
+  customToJSON: function() {
+    return _.omit(this, ['password', 'confirmation']);
   },
+
   beforeCreate: function(values, cb) {
     bcrypt.hash(values.password, 10, function (err, hash) {
       if (err) return cb(err);
@@ -74,6 +73,7 @@ module.exports = {
       cb();
     });
   },
+
   comparePassword: function(password, user) {
     return new Promise(function (resolve, reject) {
       bcrypt.compare(password, user.password, function (err, match) {
