@@ -1,5 +1,5 @@
 /**
- * User.js
+ * GameRoom.js
  *
  * @description :: A model definition represents a database table/collection.
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
@@ -22,28 +22,22 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-    firstName: { type: 'string', required: true },
-    lastName: { type: 'string', required: true },
-    userName: { type: 'string', required: true },
-    admin: { type: 'boolean', defaultsTo: false },
-    email: {
+    name: {
       type: 'string',
-      isEmail: true,
-      required: true,
-      unique: true,
+      required: true
     },
-    gameRooms: {
-      collection: 'gameRoom',
-      via: 'players'
-    },
-    Totalcash: {
+    smallBlind: {
       type: 'number',
-      defaultsTo: 0
+      required: true,
     },
-    bet: {
-      type: 'number'
-    }
+    bigBlind: {
+      type: 'number',
+      required: true,
+    },
+    players: {
+      collection: 'user',
+      via: 'gameRooms'
+    },
   },
-
 
 };
