@@ -25,6 +25,7 @@ module.exports = {
     firstName: { type: 'string', required: true },
     lastName: { type: 'string', required: true },
     userName: { type: 'string', required: true },
+    password: { type: 'string' },
     admin: { type: 'boolean', defaultsTo: false },
     email: {
       type: 'string',
@@ -32,13 +33,15 @@ module.exports = {
       required: true,
       unique: true,
     },
-    gameRooms: {
-      collection: 'gameRoom',
-      via: 'players'
+    game: {
+      model: 'gameRoom'
     },
-    Totalcash: {
+    totalCash: {
       type: 'number',
       defaultsTo: 0
+    },
+    inPlayCash: {
+      type: 'number',
     },
     bet: {
       type: 'number'

@@ -36,7 +36,7 @@ module.exports = {
     },
     players: {
       collection: 'user',
-      via: 'gameRooms'
+      via: 'game'
     },
   },
 
