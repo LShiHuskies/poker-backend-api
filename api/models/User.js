@@ -29,14 +29,12 @@ module.exports = {
     password: {
       type: 'string',
       minLength: 6,
-      protected: true,
       required: true,
       columnName: "encryptedPassword"
     },
     confirmation: {
       type: 'string',
       minLength: 6,
-      protected: true,
       required: true,
       columnName: "encryptedConfirmation"
     },
