@@ -36,7 +36,6 @@ module.exports = {
       type: 'string',
       minLength: 6,
       required: true,
-      columnName: "encryptedConfirmation"
     },
     admin: { type: 'boolean', defaultsTo: false },
     email: {
@@ -64,10 +63,16 @@ module.exports = {
   },
 
   beforeCreate: function(values, cb) {
+    if (!values.password || values.password !== values.confirmation) {
+      cb({
+        err: 'Password does not match.'
+      })
+    }
     bcrypt.hash(values.password, 10, function (err, hash) {
       if (err) return cb(err);
 
       values.password = hash;
+      values.confirmation = hash;
       cb();
     });
   },

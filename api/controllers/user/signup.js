@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const bcrypt = require('bcrypt');
 
 module.exports = {
 
@@ -20,7 +21,8 @@ module.exports = {
     userName: {
       description: 'The UserName of the User',
       type: 'string',
-      required: true
+      required: true,
+      unique: true,
     },
     password: {
       type: 'string',
@@ -50,14 +52,37 @@ module.exports = {
   exits: {
     success: {
       responseStatus: 200
+    },
+    badRequest: {
+      responseStatus: 404,
+      message: 'Please be sure that the password and confirmation password are same'
     }
   },
 
 
   fn: async function (inputs, exits) {
 
-    console.log(inputs);
-    return;
+    let { password, confirmation } = inputs;
+
+    if (password !== confirmation) {
+      return exits.badRequest({
+        message: 'Please be sure that the password and confirmation password are same'
+      })
+    } 
+
+
+    const newUser = await User.create({
+      firstName: inputs.firstName,
+      lastName: inputs.lastName,
+      userName: inputs.userName,
+      password: password,
+      confirmation: confirmation,
+      email: inputs.email
+    })
+
+    console.log(newUser);
+
+    return exits.success(newUser);
 
   }
 
