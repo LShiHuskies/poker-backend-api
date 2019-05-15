@@ -62,25 +62,13 @@ module.exports = {
 
   fn: async function (inputs, exits) {
 
-    let { password, confirmation } = inputs;
+    const { password, confirmation } = inputs;
 
     if (password !== confirmation) {
       return exits.badRequest({
         message: 'Please be sure that the password and confirmation password are same'
       })
-    } 
-
-
-    const newUser = await User.create({
-      firstName: inputs.firstName,
-      lastName: inputs.lastName,
-      userName: inputs.userName,
-      password: password,
-      confirmation: confirmation,
-      email: inputs.email
-    })
-
-    console.log(newUser);
+    }
 
     return exits.success(newUser);
 

@@ -15,7 +15,6 @@
 
 module.exports.models = {
 
-
   /***************************************************************************
   *                                                                          *
   * Whether model methods like `.create()` and `.update()` should ignore     *
