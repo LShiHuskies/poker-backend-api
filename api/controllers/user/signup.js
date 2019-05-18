@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const bcrypt = require('bcrypt');
 
 module.exports = {
 
@@ -77,15 +76,12 @@ module.exports = {
     let result;
     try {
       await User.create({...inputs})
-        .then(res => User.findOne({ email })
+        .then(() => User.findOne({ email })
         .then(response => result = response))
     } catch (err) {
       console.log(err);
     }
 
     return exits.success(result);
-
   }
-
-
 };

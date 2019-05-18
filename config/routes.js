@@ -10,4 +10,5 @@
 
 module.exports.routes = {
     'post /signup': { controller: 'user', action: 'signup' },
+    'post /login': { controller: 'user', action: 'login' }
 };

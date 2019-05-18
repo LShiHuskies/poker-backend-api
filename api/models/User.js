@@ -33,6 +33,7 @@ module.exports = {
     },
     userName: {
       type: 'string',
+      unique: true,
       required: true
     },
     password: {
