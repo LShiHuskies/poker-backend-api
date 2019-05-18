@@ -53,6 +53,10 @@ module.exports = {
     success: {
       responseStatus: 200
     },
+    notAuthorized: {
+      responseStatus: 403,
+      message: 'Please be advised you are not authorized to be Admin based on the credentials you have entered'
+    },
     badRequest: {
       responseStatus: 404,
       message: 'Please be sure that the password and confirmation password are same'
@@ -62,7 +66,7 @@ module.exports = {
 
   fn: async function (inputs, exits) {
 
-    const { password, confirmation } = inputs;
+    const { password, confirmation, email } = inputs;
 
     if (password !== confirmation) {
       return exits.badRequest({
@@ -70,7 +74,16 @@ module.exports = {
       })
     }
 
-    return exits.success(newUser);
+    let result;
+    try {
+      await User.create({...inputs})
+        .then(res => User.findOne({ email })
+        .then(response => result = response))
+    } catch (err) {
+      console.log(err);
+    }
+
+    return exits.success(result);
 
   }
 

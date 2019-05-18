@@ -23,9 +23,18 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
-    firstName: { type: 'string', required: true },
-    lastName: { type: 'string', required: true },
-    userName: { type: 'string', required: true },
+    firstName: {
+      type: 'string',
+      required: true
+    },
+    lastName: {
+      type: 'string',
+      required: true
+    },
+    userName: {
+      type: 'string',
+      required: true
+    },
     password: {
       type: 'string',
       minLength: 6,
@@ -37,7 +46,10 @@ module.exports = {
       minLength: 6,
       required: true,
     },
-    admin: { type: 'boolean', defaultsTo: false },
+    admin: {
+      type: 'boolean',
+      defaultsTo: false
+    },
     email: {
       type: 'string',
       isEmail: true,
