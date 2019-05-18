@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwToken = require('../../services/jwToken');
 
 module.exports = {
   friendlyName: 'Login',
@@ -37,7 +38,7 @@ module.exports = {
 
 
   fn: async function (inputs, exits) {
-    const { userName, password } = inputs;
+    const { userName } = inputs;
     // All done.
     // bcrypt.compare(inputs.password,, function(err, result) {
     //   if (result) {
@@ -49,6 +50,7 @@ module.exports = {
     //     return exits.forbidden({ err: 'Email and password combination do not match' });
     //   }
     // });
+
     const user = await User.findOne({ userName });
   
     if (!user) {
@@ -57,22 +59,18 @@ module.exports = {
       });
     }
 
-    bcrypt.compare(inputs.password, user.password, function (err, result, cb) {
+    bcrypt.compare(inputs.password, user.password, function (err, result) {
       if (err) return console.log(err);
 
-      if (result) {
-        cb()
-      } else {
+      if (!result) {
           return exits.forbidden({
             err: 'UserName and password combination do not match'
           })
       }
-
     });
 
 
     exits.success(user);
-
   }
 
 
